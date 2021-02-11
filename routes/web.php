@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,3 +32,6 @@ Route::post('/stock/add', [App\Http\Controllers\StockController::class, 'store']
 /*Rotas para editar estoque*/
 Route::get('/stock/edit/{id}', [App\Http\Controllers\StockController::class, 'edit'])->name('edit-stock');
 Route::post('/stock/edit/{id}', [App\Http\Controllers\StockController::class, 'update'])->name('update-stock');
+
+/*Rotas para excluir estoque*/
+Route::delete('stock/delete/{id}', [App\Http\Controllers\StockController::class, 'delete'])->name('delete');

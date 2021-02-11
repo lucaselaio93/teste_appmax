@@ -5,9 +5,13 @@
 .tr-cabecalho{
     background-color: #dee2e6;
 }
+td, th {
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+}
 </style>
 
-<div class="card text-center">
+<div class="card">
     <div class="card-header">
     <h4>Listagem de estoque</h4>
     </div>
@@ -37,18 +41,22 @@
                             </a>
                         </td>
                         <td class="td-btn">
-                            <a class="btn btn-outline-danger"  href="#">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a>
+                            <form action="{{ route('delete', $stock->stock_id) }}" method="POST">
+                                @csrf
+                                @method('DELETE') 
+                                <button type="submit" class="btn btn-outline-danger delete" href="#">
+                                    <i class="fa fa-trash" aria-hidden="true" ></i>
+                                </button>
+                            </form>
                         </td>
                         
                     </tr>
                 @endforeach
             </tbody>
         </table>
-</div>
     </div>
-    <div class="card-footer text-muted">
+    </div>
+        <div class="card-footer text-muted">
     </div>
 </div>
 @endsection

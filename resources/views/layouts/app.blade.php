@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
     .container{
-        margin-left: 30%;
+        margin-left: 23%;
     }
     </style>
 </head>

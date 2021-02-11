@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="card text-center">
     <div class="card-header">
     <h4>Editar Estoque</h4>

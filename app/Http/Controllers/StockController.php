@@ -57,8 +57,20 @@ class StockController extends Controller {
             return redirect()->route('stock-show')->with('success', "Estoque $request->stock_name editado com sucesso!");
         }catch(Throwable $e){
             return redirect()->route('stock-show')->with('error', $e->getMessage());
-        }
-        
+        } 
     }
+
+    public function delete($id){
+
+        $stock = Stock::findOrFail($id);
+        try{
+            $stock->delete();
+            return redirect()->route('stock-show')->with('success', "Estoque excluido com sucesso!");
+        }catch(Throwable $e){
+            return redirect()->route('stock-show')->with('error', $e->getMessage());
+        } 
+
+    }
+
     
 }
