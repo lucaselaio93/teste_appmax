@@ -2,62 +2,53 @@
 
 @section('content')
 <style>
-.icon-btn{
-    background-color: blue;
-    padding: 3px 3px 3px 3px;
-    border-radius: 10px;
-    border-bottom: 2px black solid;
-    border-right: 2px black solid;
-}
-.remove{
-    background-color: red;
-}
-.td-btn{
-    width: 30px;
-}
-.container{
-    margin-left: 23%;
-}
-.table-border{
-    border: 1px #dee2e6 solid;
+.tr-cabecalho{
+    background-color: #dee2e6;
 }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="table-border">
-            <table class="table table-responsive text-center">
-                <tr  ><td colspan="4"> Listagem de Estoque</td></tr>
+
+<div class="card text-center">
+    <div class="card-header">
+    <h4>Listagem de estoque</h4>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <div class="card-text">
+        <table class="table table-striped text-center">
+        
+            <thead>
                 <tr>
-                    <td>Id</td>
-                    <td style="width:300px">Nome</td>
-                    <td>Editar</td>
-                    <td>Excluir</td>
+                    <th scope="col">Id</th>
+                    <th scope="col" style="width:300px">Nome</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Excluir</th>
                 </tr>
+            </thead>
             
+            
+            <tbody>
                 @foreach ($arrStock as $stock)
                     <tr>
-                        <td>{{ $stock->stock_id }}</td>
+                        <th scope="row">{{ $stock->stock_id }}</th>
                         <td>{{ $stock->stock_name }}</td>
                         <td class="td-btn">
-                            <a href="{{ route('edit-stock', $stock->stock_id) }}">
-                            <div class="icon-btn">
-                                <i style="color:white;" class="fa fa-pencil" aria-hidden="true"></i>
-                            </div>
+                            <a class="btn btn-outline-info"" href="{{ route('edit-stock', $stock->stock_id) }}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
                             </a>
                         </td>
                         <td class="td-btn">
-                            <a href="#">
-                                <div class="icon-btn remove">
-                                    <i style="color:white;" class="fa fa-trash" aria-hidden="true"></i>
-                                </div>
+                            <a class="btn btn-outline-danger"  href="#">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                         </td>
                         
                     </tr>
                 @endforeach
-                
-            </table>
-        </div>
+            </tbody>
+        </table>
+</div>
+    </div>
+    <div class="card-footer text-muted">
     </div>
 </div>
 @endsection

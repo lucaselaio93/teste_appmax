@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class StockController extends Controller {
-    
-    /*
-    * Redirecionamento após cadastrar novo estoque 
-    *
-    * @var string
-    */
-    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Get a validator for an incoming registration request.
@@ -28,10 +21,6 @@ class StockController extends Controller {
             'stock_name' => ['required', 'string', 'max:255']
         ]);
     }
-
-    /* public function index(){
-        return view('stock.index');
-    } */
 
     public function create(){
        return view('stock.create');
