@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class StockController extends Controller {
@@ -69,8 +71,39 @@ class StockController extends Controller {
         }catch(Throwable $e){
             return redirect()->route('stock-show')->with('error', $e->getMessage());
         } 
-
     }
 
-    
+    public function addToStock(){
+        $stocks = Stock::all();
+        $products = Product::all();
+        return view('stock.addProduct', compact('stocks', 'products'));
+    }
+
+    public function addProductToStock(Request $request){
+        $product = Product::findOrFail($request->product_id);
+        $stock = Stock::findOrFail($request->stock_id);
+        try{
+            $product->update([
+                'product_name' => $product->product_name,
+                'product_sku' => $product->product_sku,
+                'product_qnt' => $request->product_qnt,
+                'stock_id' => $request->stock_id,
+            ]);
+            return redirect()->route('stock-product-add')->with('success', "$product->product_name vinculado ao $stock->stock_name com sucesso!");
+        }catch(Throwable $e){
+            return redirect()->route('stock-product-add')->with('error', $e->getMessage());
+        } 
+    }
+
+    public function dropToStock($id){
+
+        $stock = Stock::findOrFail($id);
+        $products = DB::table('stocks')
+        ->select('*')
+        ->join('products', 'products.stock_id', '=', 'stocks.stock_id')
+        ->where('stocks.stock_id', '=', $id)
+        ->get();
+        dd($stock,$products);
+        return view('stock.dropProduct', compact('stock', 'products'));
+    }
 }

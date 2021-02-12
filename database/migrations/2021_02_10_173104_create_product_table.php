@@ -16,9 +16,9 @@ class CreateProductTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id');
             $table->string('product_name');
-            $table->string('product_sku')->unique();
-            $table->string('product_qnt');
-            $table->bigInteger('stock_id')->unsigned();
+            $table->string('product_sku')->unique()->nullable();
+            $table->integer('product_qnt')->nullable();
+            $table->bigInteger('stock_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('stock_id')->references('stock_id')->on('stocks');
         });

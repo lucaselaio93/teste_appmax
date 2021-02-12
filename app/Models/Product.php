@@ -11,7 +11,11 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $primaryKey = 'product_id';
+
     public function stocks(){
         return $this->hasMany(Stock::class);
     }
+
+    protected $fillable = ['product_id', 'product_name', 'product_sku', 'product_qnt', 'stock_id', ];
 }
