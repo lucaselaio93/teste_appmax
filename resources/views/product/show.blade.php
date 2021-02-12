@@ -51,7 +51,7 @@ td, th {
                             <form action="{{ route('delete-product', $product['product_id']) }}" method="POST">
                                 @csrf
                                 @method('DELETE') 
-                                @if($product['product_qnt']>0)
+                                @if($product['product_qnt']==0)
                                 <button type="submit" class="btn btn-outline-danger" href="#">
                                     <i class="fa fa-trash" aria-hidden="true" ></i>
                                 </button>

@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
         <div class="card-text">
-            <form action="{{ route('stock-product-add') }}" method="POST">
+            <form action="{{ route('stock-product-vinculate') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="mb-4 col">

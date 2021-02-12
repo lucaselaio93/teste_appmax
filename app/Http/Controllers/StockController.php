@@ -73,10 +73,10 @@ class StockController extends Controller {
         } 
     }
 
-    public function addToStock(){
+    public function vinculateToStock(){
         $stocks = Stock::all();
         $products = Product::all();
-        return view('stock.addProduct', compact('stocks', 'products'));
+        return view('stock.vinculateProduct', compact('stocks', 'products'));
     }
 
     public function addProductToStock(Request $request){
@@ -86,24 +86,83 @@ class StockController extends Controller {
             $product->update([
                 'product_name' => $product->product_name,
                 'product_sku' => $product->product_sku,
-                'product_qnt' => $request->product_qnt,
+                'product_qnt' => $product->product_qnt,
                 'stock_id' => $request->stock_id,
             ]);
-            return redirect()->route('stock-product-add')->with('success', "$product->product_name vinculado ao $stock->stock_name com sucesso!");
+            return redirect()->route('stock-product-vinculate')->with('success', "$product->product_name vinculado ao $stock->stock_name com sucesso!");
         }catch(Throwable $e){
-            return redirect()->route('stock-product-add')->with('error', $e->getMessage());
+            return redirect()->route('stock-product-vinculate')->with('error', $e->getMessage());
         } 
     }
 
-    public function dropToStock($id){
+    public function dropToStockSelect(){
+        $stocks = Stock::all();
+        return view('stock.dropStockSelect', compact('stocks'));
+    }
 
-        $stock = Stock::findOrFail($id);
+    public function dropStockProduct(Request $request){
+        $stock = Stock::findOrFail($request->stock_id);
         $products = DB::table('stocks')
         ->select('*')
         ->join('products', 'products.stock_id', '=', 'stocks.stock_id')
-        ->where('stocks.stock_id', '=', $id)
+        ->where('stocks.stock_id', '=', $request->stock_id)
         ->get();
-        dd($stock,$products);
-        return view('stock.dropProduct', compact('stock', 'products'));
+        return view('stock.dropStockProduct', compact('stock', 'products'));
+    }
+
+    public function dropProductFromStock(Request $request){
+        if($request->qnt_baixa > $request->product_qnt){
+            return redirect()->route('stock-select-drop')->with('error', 'O valor da baixa não pode ser maior do que a quantidade em estoque do produto.');
+        }
+        if($request->qnt_baixa*1 < 0){
+            return redirect()->route('stock-select-drop')->with('error', 'O valor da baixa não pode ser menor que zero.');
+        }
+        $product = Product::findOrFail($request->product_id);
+        $new_qnt = $request->product_qnt - $request->qnt_baixa;
+        try{
+            $product->update([
+                'product_name' => $product->product_name,
+                'product_sku' => $product->product_sku,
+                'product_qnt' => $new_qnt,
+                'stock_id' => $product->stock_id,
+            ]);
+            return redirect()->route('stock-select-drop', ['request' => $request])->with('success', "Baixa do produto $product->product_name efetuada com sucesso!");
+        }catch(Throwable $e){
+            return redirect()->route('stock-select-drop')->with('error', $e->getMessage());
+        } 
+    }
+
+    public function addToStockSelect(){
+        $stocks = Stock::all();
+        return view('stock.addStockSelect', compact('stocks'));
+    }
+
+    public function addStockProduct(Request $request){
+        $stock = Stock::findOrFail($request->stock_id);
+        $products = DB::table('stocks')
+        ->select('*')
+        ->join('products', 'products.stock_id', '=', 'stocks.stock_id')
+        ->where('stocks.stock_id', '=', $request->stock_id)
+        ->get();
+        return view('stock.addStockProduct', compact('stock', 'products'));
+    }
+
+    public function addProductFromStock(Request $request){
+        if($request->qnt_entrada*1 < 0){
+            return redirect()->route('stock-select-add')->with('error', 'O valor da entrada não pode ser menor que zero.');
+        }
+        $product = Product::findOrFail($request->product_id);
+        $new_qnt = $request->product_qnt + $request->qnt_entrada;
+        try{
+            $product->update([
+                'product_name' => $product->product_name,
+                'product_sku' => $product->product_sku,
+                'product_qnt' => $new_qnt,
+                'stock_id' => $product->stock_id,
+            ]);
+            return redirect()->route('stock-select-add', ['request' => $request])->with('success', "Entrada do produto $product->product_name efetuada com sucesso!");
+        }catch(Throwable $e){
+            return redirect()->route('stock-select-add')->with('error', $e->getMessage());
+        } 
     }
 }

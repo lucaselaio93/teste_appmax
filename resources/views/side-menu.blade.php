@@ -154,8 +154,9 @@ body {
                 <ul class="sub-menu collapse" id="estoque">
                     <li><a href="{{ route('stock-add') }}">Cadastrar</a></li>
                     <li><a href="{{ route('stock-show') }}">Listar</a></li>
-                    <li><a href="{{ route('stock-product-drop', 2) }}">Baixa de produtos</a></li>
-                    <li><a href="{{ route('stock-product-add') }}">Adicionar produtos</a></li>
+                    <li><a href="{{ route('stock-select-drop') }}">Baixa de produtos</a></li>
+                    <li><a href="{{ route('stock-select-add') }}">Entrada de produtos</a></li>
+                    <li><a href="{{ route('stock-product-vinculate') }}">Vincular produto</a></li>
                 </ul>
 
 

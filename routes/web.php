@@ -38,13 +38,19 @@ Route::post('/stock/edit/{id}', [StockController::class, 'update'])->name('updat
 /* Rota para excluir estoque */
 Route::delete('stock/delete/{id}', [StockController::class, 'delete'])->name('delete-stock')->middleware('auth');
 
-/* Rota para atribuir produto ao estoque */
-Route::get('stock/add/products', [StockController::class, 'addToStock'])->name('stock-product-add')->middleware('auth');
-Route::post('stock/add/products', [StockController::class, 'addProductToStock'])->name('product-stock-add')->middleware('auth');
+/* Rotas para vincular produto ao estoque */
+Route::get('stock/vinculate/products', [StockController::class, 'vinculateToStock'])->name('stock-product-vinculate')->middleware('auth');
+Route::post('stock/vinculate/products', [StockController::class, 'addProductToStock'])->name('stock-product-vinculate-add')->middleware('auth');
+
+/* Rota para adicionar  produto ao estoque */
+Route::get('stock/add/products', [StockController::class, 'addToStockSelect'])->name('stock-select-add')->middleware('auth');
+Route::post('stock/add/products', [StockController::class, 'addStockProduct'])->name('product-stock-add')->middleware('auth');
+Route::post('stock/add/product', [StockController::class, 'addProductFromStock'])->name('stock-product-add')->middleware('auth');
 
 /* Rota para dar baixa do produto no estoque */
-Route::get('stock/drop/products/{id}', [StockController::class, 'dropToStock'])->name('stock-product-drop')->middleware('auth');
-Route::post('stock/drop/products', [StockController::class, 'dropProductToStock'])->name('product-stock-drop')->middleware('auth');
+Route::get('stock/drop/products', [StockController::class, 'dropToStockSelect'])->name('stock-select-drop')->middleware('auth');
+Route::post('stock/drop/products', [StockController::class, 'dropStockProduct'])->name('product-stock-drop')->middleware('auth');
+Route::post('stock/drop/product', [StockController::class, 'dropProductFromStock'])->name('stock-product-drop')->middleware('auth');
 
 
 /* Rota para exibir produtos */

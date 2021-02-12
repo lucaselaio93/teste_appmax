@@ -17,5 +17,5 @@ class Product extends Model
         return $this->hasMany(Stock::class);
     }
 
-    protected $fillable = ['product_id', 'product_name', 'product_sku', 'product_qnt', 'stock_id', ];
+    protected $fillable = ['product_id', 'product_name', 'product_sku', 'product_qnt', 'stock_id' ];
 }

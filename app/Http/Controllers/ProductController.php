@@ -75,7 +75,7 @@ class ProductController extends Controller
     public function delete($id){
 
         $product = Product::findOrFail($id);
-        if($product->product_qnt <= 0){
+        if($product->product_qnt > 0){
             return redirect()->route('product-show')->with('error', "Não é possível excluir produtos presentes no estoque. Para excluir primeiro dê baixa no mesmo.");
         }
         try{
