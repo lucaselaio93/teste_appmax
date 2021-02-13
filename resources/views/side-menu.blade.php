@@ -149,7 +149,7 @@ body {
             <ul id="menu-content" class="menu-content collapse out">
 
                 <li  data-toggle="collapse" data-target="#estoque" class="collapsed">
-                  <a href="#"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>   Estoque <span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-truck fa-lg" aria-hidden="true"></i>   Estoques <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="estoque">
                     <li><a href="{{ route('stock-add') }}">Cadastrar</a></li>
@@ -161,19 +161,13 @@ body {
 
 
                 <li data-toggle="collapse" data-target="#produto" class="collapsed">
-                  <a href="#"><i class="fa fa-tag fa-lg"></i>   Produto <span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-tag fa-lg"></i>   Produtos <span class="arrow"></span></a>
                 </li>  
                 <ul class="sub-menu collapse" id="produto">
                     <li><a href="{{ route('product-add') }}">Cadastrar</a></li>
                     <li><a href="{{ route('product-show') }}">Listar</a></li>
                     
                 </ul>
-
-                 <!-- <li>
-                  <a href="#">
-                  <i class="fa fa-user fa-lg"></i> Perfil
-                  </a>
-                  </li> -->
             </ul>
      </div>
 </div>

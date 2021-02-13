@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataReportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Auth;
@@ -66,3 +67,9 @@ Route::post('/product/edit/{id}', [ProductController::class, 'update'])->name('u
 
 /* Rota para excluir estoque */
 Route::delete('product/delete/{id}', [ProductController::class, 'delete'])->name('delete-product')->middleware('auth');
+
+
+/* Rotas para relatórios */
+Route::get('/relatorios/movimentacao', [DataReportController::class, 'index'])->name('report')->middleware('auth');
+Route::get('/relatorios/download', [DataReportController::class, 'relatorioMovimentacao'])->name('data-report')->middleware('auth');
+Route::post('/relatorios/download', [DataReportController::class, 'gerarRelatorioMovimentacao'])->name('data-report-download')->middleware('auth');
